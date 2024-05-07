@@ -124,3 +124,32 @@
   });
 
 })()
+
+
+
+// tour
+var currentPoint = 1; // Start with point1
+    
+function nextPoint() {
+    var tourname = document.getElementById('tourname');
+    var point2 = document.getElementById('point2').value;
+    var point3 = document.getElementById('point3').value;
+    var point4 = document.getElementById('point4').value;
+    var endMessage = document.getElementById('endMessage');
+    var nextButton = document.querySelector('.btn');
+    
+    if (currentPoint == 1) {
+        tourname.innerText = point2;
+        currentPoint = 2;
+    } else if (currentPoint == 2) {
+        tourname.innerText = point3;
+        currentPoint = 3;
+    } else if (currentPoint == 3) {
+        tourname.innerText = point4;
+        currentPoint = 4;
+    } else {
+        endMessage.style.display = 'block';
+        nextButton.innerText = 'End';
+        nextButton.setAttribute('onclick', ''); // Remove onclick event
+    }
+}

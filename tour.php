@@ -109,6 +109,8 @@ $result_stats = $conn->query($sql_control);
     <div class="col-md-4">
     </div>
     <div class="col-md-4">
+      <h1><b>Your Tour</b> </h1>
+      <br/>
     <?php echo "<h1 id='place'>" . $row["place"] . "</h1>";   ?>
     <?php
     if ($result_stats->num_rows > 0) {
@@ -116,18 +118,20 @@ $result_stats = $conn->query($sql_control);
         $row = $result_stats->fetch_assoc();
         
         echo "<h1>" . $row["place"] . ": <b id='tourname'> <br/>" . $row["point1"] . "</b></h1>";
-        echo "<input type='hidden' id='point2' value=' " . $row["point2"] . "'/><br/>";
-        echo "<input type='hidden' id='point3' value='" . $row["point3"] . "'/><br/>";
-        echo "<input type='hidden' id='point4' value='" . $row["point4"] . "'/><br/>";
+        echo "<input type='hidden' id='point2' value='" . $row["point2"] . "'/>";
+        echo "<input type='hidden' id='point3' value='" . $row["point3"] . "'/>";
+        echo "<input type='hidden' id='point4' value='" . $row["point4"] . "'/>";
         
     } else {
         echo "0 results";
     }
     ?>
     <br/>
-    <button class="knopf" onclick="nextPoint()"><h1>CHECK</h1> </button>
+    <button class="btn"  onclick="nextPoint()"><h1>CHECK</h1> </button>
+    <div id="endMessage" style="display: none;color:red">
+    <h1>Hurray, end of tour reached. :)</h1>
 </div>
-
+</div>
 
     </div>
     <div class="col-md-4">
@@ -229,6 +233,7 @@ $result_stats = $conn->query($sql_control);
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
   <script>
     var currentPoint = 1; // Start with point1
     
@@ -237,6 +242,8 @@ $result_stats = $conn->query($sql_control);
         var point2 = document.getElementById('point2').value;
         var point3 = document.getElementById('point3').value;
         var point4 = document.getElementById('point4').value;
+        var endMessage = document.getElementById('endMessage');
+        var nextButton = document.querySelector('.btn');
         
         if (currentPoint == 1) {
             tourname.innerText = point2;
@@ -248,7 +255,9 @@ $result_stats = $conn->query($sql_control);
             tourname.innerText = point4;
             currentPoint = 4;
         } else {
-            alert("End of tour reached.");
+            endMessage.style.display = 'block';
+            nextButton.innerText = '';
+            nextButton.setAttribute('onclick', ''); // Remove onclick event
         }
     }
 </script>
