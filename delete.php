@@ -123,7 +123,7 @@ $conn->close();
     <div class="col-md-4">
     </div>
     <div class="col-md-4">
-      <h1><b>Eintrag Gelöscht</b> </h1>
+      <h1><b>Entry deleted</b> </h1>
       <br/>
 </div>
 </div>
