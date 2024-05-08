@@ -60,8 +60,6 @@ $result_stats = $conn->query($sql_control);
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="active " href="index.php">Home</a></li>
-          <li><a href="tour.php">Tours</a></li>
-          <li><a href="contact.php">Contact Us</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
