@@ -122,14 +122,15 @@ $result_stats = $conn->query($sql_control);
     </div>
     <div class="col-md-4">
     <div class="step">
-    <h3>Your Tour</h3>
+    <h2>Your Tour</h2>
     <br/>
     <?php
     
     if ($result_stats->num_rows > 0) {
         // Schleife über jede Zeile in der Abfrageergebnismenge
         while($row = $result_stats->fetch_assoc()) {
-            echo "<p> Tourname: <b>" . $row["place"] . "</b></p>";
+          echo "<h3> Tourname: <b><a href='tour.php'>" . $row["place"] . "</a></b></h3><br/>";
+
         }
     } else {
         echo "0 results";

@@ -127,8 +127,9 @@ $result_stats = $conn->query($sql_control);
     }
     ?>
     <br/>
-    <button class="btn"  onclick="nextPoint()"><h1>CHECK</h1> </button>
+    <button class="btn btn-primary btn-lg btn-block"  style="color: white" onclick="nextPoint()"><h1>CHECK</h1> </button>
     <div id="endMessage" style="display: none;color:red">
+    <br/>
     <h1>Hurray, end of tour reached. :)</h1>
 </div>
 </div>
@@ -256,7 +257,8 @@ $result_stats = $conn->query($sql_control);
             currentPoint = 4;
         } else {
             endMessage.style.display = 'block';
-            nextButton.innerText = '';
+            endMessage.style.fontSize = '36px';
+            nextButton.innerText = 'Finish';
             nextButton.setAttribute('onclick', ''); // Remove onclick event
         }
     }
