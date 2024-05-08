@@ -152,7 +152,9 @@ $result_stats = $conn->query($sql_control);
           <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
             <div class="feature-1 text-center">
               <div class="wrap-icon icon-1">
-                <i class="bi bi-plus-square"></i>
+              <a href="insert_tour.php">
+                <i class="bi bi-plus-square"></i> 
+                </a>
               </div>
               <h3 class="mb-3">Add Tour</h3>
             </div>

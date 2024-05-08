@@ -24,7 +24,7 @@ $result_stats = $conn->query($sql_control);
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>reeagle - Index</title>
+  <title>reeagle - insert</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -86,7 +86,7 @@ $result_stats = $conn->query($sql_control);
         <div class="col-12 hero-text-image">
           <div class="row">
             <div class="col-lg-8 text-center text-lg-start">
-              <h1 data-aos="fade-right">tours</h1>
+              <h1 data-aos="fade-right">insert-tour</h1>
               <p class="mb-5" data-aos="fade-right" data-aos-delay="100">This app supports people who suffer from control compulsion.</p>
               <p data-aos="fade-right" data-aos-delay="200" data-aos-offset="-500"></p>
             </div>
@@ -107,35 +107,32 @@ $result_stats = $conn->query($sql_control);
     <div class="col-md-4">
     </div>
     <div class="col-md-4">
-      <h1><b>Your Tour</b> </h1>
+      <h1><b>Insert Tour</b> </h1>
+      <p>Insert new Tour</p>
       <br/>
-      <?php
-
-// Überprüfen, ob die ID in der URL vorhanden ist
-if(isset($_GET['id'])) {
-    $id = $_GET['id'];
-
-    // SQL-Abfrage zum Abrufen der Tourdaten basierend auf der ID
-    $sql = "SELECT * FROM tour WHERE id = $id";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        echo "<h1>" . $row["place"] . ": <b id='tourname'> <br/>" . $row["point1"] . "</b></h1>";
-        echo "<input type='hidden' id='point2' value='" . $row["point2"] . "'/>";
-        echo "<input type='hidden' id='point3' value='" . $row["point3"] . "'/>";
-        echo "<input type='hidden' id='point4' value='" . $row["point4"] . "'/>";
-    } else {
-        echo "Tour not found";
-    }
-} else {
-    echo "Tour ID not provided";
-}
-?>
-    <br/>
-    <button class="btn btn-primary btn-lg btn-block"  style="color: white" onclick="nextPoint()"><h1>CHECK</h1> </button>
-    <br/>
-    <div id="endMessage" style="display: none; margin-top:20px;"><h1>The tour is completed. Forwarding shortly...</h1> </div>
+      <form>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Place</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Point 1</label>
+    <input class="form-control" >
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Point 2</label>
+    <input class="form-control" >
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Point 3</label>
+    <input class="form-control" >
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Point 4</label>
+    <input class="form-control" >
+  </div>
+  <button type="submit" class="btn btn-primary">Insert</button>
+</form>
 </div>
 </div>
 
