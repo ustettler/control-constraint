@@ -111,21 +111,29 @@ $result_stats = $conn->query($sql_control);
     <div class="col-md-4">
       <h1><b>Your Tour</b> </h1>
       <br/>
-    <?php echo "<h1 id='place'>" . $row["place"] . "</h1>";   ?>
-    <?php
-    if ($result_stats->num_rows > 0) {
-        // Nur den ersten Datensatz verwenden
-        $row = $result_stats->fetch_assoc();
-        
+      <?php
+
+// Überprüfen, ob die ID in der URL vorhanden ist
+if(isset($_GET['id'])) {
+    $id = $_GET['id'];
+
+    // SQL-Abfrage zum Abrufen der Tourdaten basierend auf der ID
+    $sql = "SELECT * FROM tour WHERE id = $id";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
         echo "<h1>" . $row["place"] . ": <b id='tourname'> <br/>" . $row["point1"] . "</b></h1>";
         echo "<input type='hidden' id='point2' value='" . $row["point2"] . "'/>";
         echo "<input type='hidden' id='point3' value='" . $row["point3"] . "'/>";
         echo "<input type='hidden' id='point4' value='" . $row["point4"] . "'/>";
-        
     } else {
-        echo "0 results";
+        echo "Tour not found";
     }
-    ?>
+} else {
+    echo "Tour ID not provided";
+}
+?>
     <br/>
     <button class="btn btn-primary btn-lg btn-block"  style="color: white" onclick="nextPoint()"><h1>CHECK</h1> </button>
     <div id="endMessage" style="display: none;color:red">
