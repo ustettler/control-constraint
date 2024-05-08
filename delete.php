@@ -13,11 +13,26 @@ if ($conn->connect_error) {
     echo "Connected successfully";
 }
 
-// SQL-Abfrage 
-$sql_control = "SELECT * FROM tour";
-$result_stats = $conn->query($sql_control);
-?>
+// Überprüfen, ob die ID gesetzt ist und eine gültige Zahl ist
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+  $id = $_GET['id'];
+  
+  // SQL-Instruktion für das Löschen des Eintrags mit der gegebenen ID
+  $sql = "DELETE FROM tour WHERE id = $id";
+  
+  // Eintrag aus der Datenbank löschen
+  if ($conn->query($sql) === TRUE) {
+      echo "Eintrag erfolgreich gelöscht";
+  } else {
+      echo "Fehler beim Löschen des Eintrags: " . $conn->error;
+  }
+} else {
+  echo "Ungültige ID";
+}
 
+// Verbindung schließen
+$conn->close();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -87,9 +102,9 @@ $result_stats = $conn->query($sql_control);
         <div class="col-12 hero-text-image">
           <div class="row">
             <div class="col-lg-8 text-center text-lg-start">
-              <h1 data-aos="fade-right">control-constraint</h1>
+              <h1 data-aos="fade-right">tours</h1>
               <p class="mb-5" data-aos="fade-right" data-aos-delay="100">This app supports people who suffer from control compulsion.</p>
-              <p data-aos="fade-right" data-aos-delay="200" data-aos-offset="-500"><a href="#" class="btn btn-outline-white">Get started</a></p>
+              <p data-aos="fade-right" data-aos-delay="200" data-aos-offset="-500"></p>
             </div>
            
           </div>
@@ -103,70 +118,25 @@ $result_stats = $conn->query($sql_control);
   <section class="section">
       <div class="container">
 
-        <div class="row justify-content-center text-center mb-5">
-          <div class="col-md-5" data-aos="fade-up">
-            <h2 class="section-heading">Save your lifetime and your soul</h2>
-          </div>
-        </div>
-  <section class="section">
-
-<div class="container">
-  <div class="row justify-content-center text-center mb-5" data-aos="fade">
-  
-  </div>
 
   <div class="row">
     <div class="col-md-4">
     </div>
     <div class="col-md-4">
-    <div class="step">
-        <h2>Your Tour</h2>
-        <br/>
-        <?php
-        if ($result_stats->num_rows > 0) {
-            // Schleife über jede Zeile in der Abfrageergebnismenge
-            while($row = $result_stats->fetch_assoc()) {
-                echo "<h3> Tourname: <b><a href='tour.php?id=" . $row["id"] . "'>" . $row["place"] . "</a></b>";
-                // Hinzufügen des Lösch-Links neben jedem Eintrag
-                echo "<a href='delete.php?id=" . $row["id"] . "' onclick='return confirm(\"Willst du wirklich löschen?\")'>&nbsp;&nbsp; X </a></h3>";
-            }
-        } else {
-            echo "0 results";
-        }
-        ?>
-    </div>
+      <h1><b>Eintrag Gelöscht</b> </h1>
+      <br/>
 </div>
+</div>
+
+    </div>
     <div class="col-md-4">
     </div>
   </div>
+
 </div>
 
 </section>
-    <!-- ======= Home Section ======= -->
-
-        <div class="row">
-          <div class="col-md-4" data-aos="fade-up" data-aos-delay="">
-            
-          </div>
-          <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="feature-1 text-center">
-              <div class="wrap-icon icon-1">
-              <a href="insert_tour.php">
-                <i class="bi bi-plus-square"></i> 
-                </a>
-              </div>
-              <h3 class="mb-3">Add Tour</h3>
-            </div>
-          </div>
-          <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-   
-
+  
 
     <!-- ======= CTA Section ======= -->
     <section class="section cta-section">
@@ -255,7 +225,7 @@ $result_stats = $conn->query($sql_control);
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-
+  
 </body>
 
 </html>

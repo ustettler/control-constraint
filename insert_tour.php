@@ -13,10 +13,28 @@ if ($conn->connect_error) {
     echo "Connected successfully";
 }
 
-// SQL-Abfrage 
-$sql_control = "SELECT * FROM tour";
-$result_stats = $conn->query($sql_control);
+// DB
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $place = $_POST['place'];
+  $point1 = $_POST['point1'];
+  $point2 = $_POST['point2'];
+  $point3 = $_POST['point3'];
+  $point4 = $_POST['point4'];
+
+  // SQL-Insert
+  $sql = "INSERT INTO tour (place, point1, point2, point3, point4) VALUES ('$place', '$point1', '$point2', '$point3', '$point4')";
+
+  if ($conn->query($sql) === TRUE) {
+      echo "Daten erfolgreich eingefügt";
+  } else {
+      echo "Fehler beim Einfügen der Daten: " . $conn->error;
+  }
+}
+
+// Verbindung schließen
+$conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -110,29 +128,33 @@ $result_stats = $conn->query($sql_control);
       <h1><b>Insert Tour</b> </h1>
       <p>Insert new Tour</p>
       <br/>
-      <form>
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Place</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Point 1</label>
-    <input class="form-control" >
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Point 2</label>
-    <input class="form-control" >
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Point 3</label>
-    <input class="form-control" >
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Point 4</label>
-    <input class="form-control" >
-  </div>
-  <button type="submit" class="btn btn-primary">Insert</button>
+      <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Place</label>
+        <input type="text" name="place" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Point 1</label>
+        <input type="text" name="point1" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Point 2</label>
+        <input type="text" name="point2" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Point 3</label>
+        <input type="text" name="point3" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Point 4</label>
+        <input type="text" name="point4" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Insert</button>
 </form>
+<!-- Success-->
+<?php if ($inserted): ?>
+    <p>Data successfully inserted!</p>
+<?php endif; ?>
 </div>
 </div>
 
@@ -236,45 +258,6 @@ $result_stats = $conn->query($sql_control);
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-
-  <script>
-    var currentPoint = 1; // Start with point1
-    var countdown = 10;
-    
-    function nextPoint() {
-        var tourname = document.getElementById('tourname');
-        var point2 = document.getElementById('point2').value;
-        var point3 = document.getElementById('point3').value;
-        var point4 = document.getElementById('point4').value;
-        var endMessage = document.getElementById('endMessage');
-        var nextButton = document.querySelector('.btn');
-        
-        if (currentPoint == 1) {
-            tourname.innerText = point2;
-            currentPoint = 2;
-        } else if (currentPoint == 2) {
-            tourname.innerText = point3;
-            currentPoint = 3;
-        } else if (currentPoint == 3) {
-            tourname.innerText = point4;
-            currentPoint = 4;
-        } else {
-            endMessage.style.display = 'block';
-            endMessage.style.fontSize = '36px';
-            nextButton.innerText = 'Finish';
-            // Start countdown
-            var timerInterval = setInterval(function() {
-                countdown--;
-                if (countdown <= 0) {
-                    clearInterval(timerInterval);
-                    window.location.href = 'Index.php';
-                } else {
-                    nextButton.innerText = 'Finish (' + countdown + ')';
-                }
-            }, 1000);
-        }
-    }
-</script>
   
 </body>
 
